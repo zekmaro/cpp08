@@ -6,13 +6,14 @@
 /*   By: anarama <anarama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 14:06:53 by anarama           #+#    #+#             */
-/*   Updated: 2024/10/21 20:13:03 by anarama          ###   ########.fr       */
+/*   Updated: 2024/10/21 20:14:36 by anarama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include "easyfind.hpp"
 #include <vector>
+
+#include "easyfind.hpp"
 
 int main (void) {
 	int arr[] = {5, 3, 2, 9, 1};
