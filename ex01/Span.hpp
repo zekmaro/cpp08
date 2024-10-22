@@ -6,7 +6,7 @@
 /*   By: anarama <anarama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 20:15:13 by anarama           #+#    #+#             */
-/*   Updated: 2024/10/21 21:45:10 by anarama          ###   ########.fr       */
+/*   Updated: 2024/10/22 12:40:11 by anarama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ class Span {
 			public:
 				const char* what() const throw();
 		};
+		class InvalidListLength: std::exception {
+			public:
+				const char* what() const throw();
+		};
+
 
 		void addNumber( unsigned int num );
 		
