@@ -6,54 +6,61 @@
 /*   By: anarama <anarama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 20:15:10 by anarama           #+#    #+#             */
-/*   Updated: 2024/10/22 12:44:41 by anarama          ###   ########.fr       */
+/*   Updated: 2024/10/22 14:37:33 by anarama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <algorithm>
 #include <limits>
+#include <iostream>
 
 #include "Span.hpp"
 
-Span::Span( void ) : _N(DEFAULT_N), _list(DEFAULT_N, 0), _isSorted(false) {}
+Span::Span( void ) : _N(DEFAULT_N), _list(DEFAULT_N, 0), _isSorted(false), _added(0) {}
 
-Span::Span( unsigned int N ) : _N(N), _list(N, 0), _isSorted(false) {
+Span::Span( unsigned int N ) : _N(N), _list(0, 0), _isSorted(false), _added(0) {
 	if (N <= 1) {
-		throw Span::InvalidListLength();
+		throw Span::InvalidListLengthException();
 	}
 }
 
-Span::Span( const Span& other ) : _N{other._N}, _list(other._list) {}
+Span::Span( const Span& other ) : _N(other._N), _list(other._list), _added(other._added){}
 
 Span& Span::operator=( const Span& other ) {
 	if (this != &other) {
 		this->_N = other._N;
 		this->_list = other._list;
 		this->_isSorted = other._isSorted;
+		this->_added = other._added;
 	}
 	return *this;
 }
 
 Span::~Span( void ) {}
 
-const char* Span::ArrayIsFull::what() const throw() {
+const char* Span::ArrayIsFullException::what() const throw() {
 	return "Trying to add new elemt in already fulled array!";
 }
 
-const char* Span::NoSpanFound::what() const throw() {
+const char* Span::NoSpanFoundException::what() const throw() {
 	return "No span found";
 }
 
-const char* Span::InvalidListLength::what() const throw() {
+const char* Span::InvalidListLengthException::what() const throw() {
 	return "Invalid length N provided! (should be > 1)";
 }
 
-int Span::shortestSpan( void ) {
+const char* Span::ListIsNotFullException::what() const throw() {
+	return "List is empty. No span possible";
+}
+
+unsigned int Span::shortestSpan( void ) {
+	this->checkListSize();
 	this->sortList();
-	std::vector<unsigned int>::const_iterator it;
-	int minDif = std::numeric_limits<unsigned int>::max();
-	int tempDif = 0;
-	for (it = this->_list.cbegin(); it + 1 != this->_list.cend(); it++) {
+	std::vector<int>::iterator it;
+	unsigned int minDif = std::numeric_limits<int>::max();
+	unsigned int tempDif = 0;
+	for (it = this->_list.begin(); it + 1 != this->_list.end(); it++) {
 		tempDif = *(it + 1) - *it;
 		if (tempDif < minDif) {
 			minDif = tempDif;
@@ -62,9 +69,11 @@ int Span::shortestSpan( void ) {
 	return minDif;
 }
 
-int Span::longestSpan( void ) {
+unsigned int Span::longestSpan( void ) {
+	this->checkListSize();
 	this->sortList();
-	return (this->_list[this->_list.size()] - this->_list[0]);
+	std::cout << this->_list[this->_N - 1] << " " << this->_list[0] << std::endl;
+	return (this->_list[this->_N - 1] - this->_list[0]);
 }
 
 void Span::sortList( void ) {
@@ -75,9 +84,24 @@ void Span::sortList( void ) {
 }
 
 void Span::addNumber( unsigned int num ) {
-	if (this->_list.size() >= this->_N) {
-		throw Span::ArrayIsFull();
+	if (this->_added >= this->_N) {
+		throw Span::ArrayIsFullException();
 	}
 	this->_list.push_back(num);
+	this->_added++;
 	this->_isSorted = false;
+}
+
+void Span::checkListSize( void ) {
+	if (this->_added < this->_N) {
+		throw ListIsNotFullException();
+	}
+}
+
+void Span::printList( void ) {
+	std::vector<int>::iterator it;
+	for (it = this->_list.begin(); it != this->_list.end(); it++) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
 }

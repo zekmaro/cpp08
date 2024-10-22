@@ -6,21 +6,21 @@
 #    By: anarama <anarama@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/19 11:54:40 by anarama           #+#    #+#              #
-#    Updated: 2024/10/19 14:06:58 by anarama          ###   ########.fr        #
+#    Updated: 2024/10/22 13:51:28 by anarama          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		:= c++
 
-NAME	:= find
+NAME	:= span
 
 CFLAGS	:= -Wall -Wextra -Werror -std=c++98
 
 OBJDIR	:= obj
 
-HEADERS	:=	easyfind.hpp
+HEADERS	:=	Span.hpp
 
-SRC		:=	main.cpp
+SRC		:=	main.cpp Span.cpp
 
 OBJ		:= $(SRC:%.cpp=$(OBJDIR)/%.o)
 
