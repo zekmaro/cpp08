@@ -6,21 +6,21 @@
 #    By: anarama <anarama@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/19 11:54:40 by anarama           #+#    #+#              #
-#    Updated: 2024/10/22 13:51:28 by anarama          ###   ########.fr        #
+#    Updated: 2024/10/24 12:12:14 by anarama          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		:= c++
 
-NAME	:= span
+NAME	:= mutant
 
 CFLAGS	:= -Wall -Wextra -Werror -std=c++98
 
 OBJDIR	:= obj
 
-HEADERS	:=	Span.hpp
+HEADERS	:=	MutantStack.hpp
 
-SRC		:=	main.cpp Span.cpp
+SRC		:=	main.cpp
 
 OBJ		:= $(SRC:%.cpp=$(OBJDIR)/%.o)
 
