@@ -6,7 +6,7 @@
 /*   By: anarama <anarama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 20:15:10 by anarama           #+#    #+#             */
-/*   Updated: 2024/10/22 14:37:33 by anarama          ###   ########.fr       */
+/*   Updated: 2024/11/03 12:46:29 by anarama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ unsigned int Span::shortestSpan( void ) {
 unsigned int Span::longestSpan( void ) {
 	this->checkListSize();
 	this->sortList();
-	std::cout << this->_list[this->_N - 1] << " " << this->_list[0] << std::endl;
 	return (this->_list[this->_N - 1] - this->_list[0]);
 }
 
@@ -85,7 +84,7 @@ void Span::sortList( void ) {
 
 void Span::addNumber( unsigned int num ) {
 	if (this->_added >= this->_N) {
-		throw Span::ArrayIsFullException();
+		throw ArrayIsFullException();
 	}
 	this->_list.push_back(num);
 	this->_added++;
@@ -104,4 +103,8 @@ void Span::printList( void ) {
 		std::cout << *it << " ";
 	}
 	std::cout << std::endl;
+}
+
+unsigned int Span::getSize( void ) {
+	return this->_N;
 }

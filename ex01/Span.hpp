@@ -6,7 +6,7 @@
 /*   By: anarama <anarama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 20:15:13 by anarama           #+#    #+#             */
-/*   Updated: 2024/10/22 14:37:12 by anarama          ###   ########.fr       */
+/*   Updated: 2024/11/03 12:58:46 by anarama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,24 @@ class Span {
 		Span& operator=( const Span& other );
 		~Span( void );
 
-		class ArrayIsFullException: std::exception {
+		class ArrayIsFullException: public std::exception {
 			public:
 				const char* what() const throw();
 		};
-		class NoSpanFoundException: std::exception {
+		class NoSpanFoundException: public std::exception {
 			public:
 				const char* what() const throw();
 		};
-		class InvalidListLengthException: std::exception {
+		class InvalidListLengthException: public std::exception {
 			public:
 				const char* what() const throw();
 		};
-		class ListIsNotFullException: std::exception {
+		class ListIsNotFullException: public std::exception {
 			public:
 				const char* what() const throw();
 		};
 
+		unsigned int getSize( void );
 
 		void addNumber( unsigned int num );
 		
@@ -59,6 +60,19 @@ class Span {
 		void sortList( void );
 		void checkListSize( void );
 		void printList( void );
+
+		template <typename TIterator>
+		void addRange( TIterator begin, TIterator end ) {
+			while (begin != end) {
+				if (this->_added >= this->_N) {
+					throw ArrayIsFullException();
+				}
+				this->_list.push_back(*begin);
+				this->_added++;
+				begin++;
+			}
+			this->_isSorted = false;
+		}
 };
 
 #endif // SPAN_HPP
